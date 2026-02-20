@@ -20,6 +20,7 @@ const isTokenExpired = (token) => {
     const { exp } = parseJwt(token);
     return Date.now() >= exp * 1000;
   } catch (err) {
+    console.log(err);
     return true;
   }
 };

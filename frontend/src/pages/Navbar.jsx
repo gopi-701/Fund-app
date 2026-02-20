@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -34,7 +34,7 @@ const Navbar = ({ isLoggedIn }) => {
         {/* Logo */}
         <div className="text-xl font-bold">
           <Link to="/view" className="hover:text-gray-300">
-            Chit Smart
+            Chit Ease
           </Link>
         </div>
 

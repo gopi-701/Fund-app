@@ -89,6 +89,7 @@ export const createListing = async (req, res) => {
       startDate,
       currentMonth,
       endDate,
+      currentBid: 0,
       members: memberIds,
       userId,
     });

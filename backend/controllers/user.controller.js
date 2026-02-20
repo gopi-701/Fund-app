@@ -33,7 +33,7 @@ export const register = async (req, res, next) => {
     next();
   } catch (error) {
     // console.log(error);
-    return res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({ message: error });
   }
 };
 
@@ -83,3 +83,22 @@ export const logout = async (req, res) => {
       .json({ message: "Logout failed", error: error.message });
   }
 };
+
+export const getProfile = async (req, res) => {
+    try {
+        // req.user is already populated by authenticateUser middleware
+        const user = req.user;
+        return res.status(200).json({
+            success: true,
+            user: {
+                _id: user._id,
+                name: user.name,
+                username: user.username,
+                dob: user.dob,
+                createdAt: user.createdAt,
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({ message: "Error fetching profile", error: error.message });
+    }
+}

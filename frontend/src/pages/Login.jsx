@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -18,7 +18,7 @@ const Login = ({ onLoginSuccess }) => {
       navigate("/view");
       onLoginSuccess();
     }
-  }, [navigate]);
+  }, []);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -60,7 +60,7 @@ const Login = ({ onLoginSuccess }) => {
         handleError(message);
       }
     } catch (error) {
-      handleError(error);
+      handleError(error.response?.data?.message || error.message || "An error occurred");
       console.log(error);
     }
     setInputValue({

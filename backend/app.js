@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.routes.js";
 import listingRoutes from "./routes/listing.routes.js";
 
-export const PORT = 5555 || process.env.PORT;
+export const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(
     origin: ["http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  })
+  }),
 );
 
 app.use(userRoutes);
@@ -25,16 +25,18 @@ app.get("/", (req, res) => {
   return res.status(500).send("welcome to chit company");
 });
 
+const connectDB = () => {
+  return mongoose.connect(process.env.MONGO_URI, { dbName: "chit" });
+};
+
 const start = async () => {
-  const connectDB = await mongoose
-    .connect(process.env.MONGO_URI, {
-      dbName: "chit",
-    })
-    .then(() => {
-      // console.log("connected to database");
-      app.listen(PORT, () => {
-        // console.log(`server is running on port ${PORT}`);
-      });
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`server is running on port ${PORT}`);
     });
+  } catch (error) {
+    console.log(error);
+  }
 };
 start();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -70,14 +70,14 @@ const Signup = ({ onLoginSuccess }) => {
             handleError(message);
           }
         } catch (error) {
-          handleError(error);
+          handleError(error.response?.data?.message || error.message || "An error occurred");
           console.log(error);
         }
       } else {
         handleError(message);
       }
     } catch (error) {
-      handleError(error);
+      handleError(error.response?.data?.message || error.message || "An error occurred");
       console.log(error);
     }
     setInputValue({
